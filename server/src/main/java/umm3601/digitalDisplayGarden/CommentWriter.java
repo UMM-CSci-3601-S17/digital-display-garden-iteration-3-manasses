@@ -2,6 +2,7 @@ package umm3601.digitalDisplayGarden;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.Map;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
@@ -19,37 +20,55 @@ public class CommentWriter {
     XSSFWorkbook workbook;
     XSSFSheet commentSheet;
     XSSFSheet metadataSheet;
-    int rowCount;
+    int rowCountComments;
     MongoClient mongoClient;
     MongoDatabase test;
     MongoCollection plants;
+    int rowCountMeta;
 
     public CommentWriter(OutputStream outputStream) throws IOException{
         this.outputStream = outputStream;
 
         this.workbook = new XSSFWorkbook();
         this.commentSheet = workbook.createSheet("Comments");
+        this.metadataSheet = workbook.createSheet("MetaData");
 
         this.mongoClient = new MongoClient();
         this.test = mongoClient.getDatabase("test");
         this.plants = test.getCollection("plants");
 
-        Row row = commentSheet.createRow(0);
-        Cell cell = row.createCell(0);
+        Row rowComment = commentSheet.createRow(0);
+        Cell cell = rowComment.createCell(0);
         cell.setCellValue("#");
 
-
-
-        cell = row.createCell(1);
+        cell = rowComment.createCell(1);
         cell.setCellValue("cultivar");
 
-        cell = row.createCell(2);
+        cell = rowComment.createCell(2);
         cell.setCellValue("comment");
 
-        cell = row.createCell(3);
+        cell = rowComment.createCell(3);
         cell.setCellValue("timestamp");
 
-        rowCount = 1;
+        rowCountComments = 1;
+
+        Row rowMeta = metadataSheet.createRow(0);
+        cell = rowMeta.createCell(0);
+        cell.setCellValue("#");
+
+        cell = rowMeta.createCell(1);
+        cell.setCellValue("cultivar");
+
+        cell = rowMeta.createCell(2);
+        cell.setCellValue("likes");
+
+        cell = rowMeta.createCell(3);
+        cell.setCellValue("dislikes");
+
+        cell = rowMeta.createCell(4);
+        cell.setCellValue("page views");
+
+        rowCountMeta = 1;
     }
 
     /**
@@ -59,7 +78,7 @@ public class CommentWriter {
      * @param timestamp: time the user left the comment
      */
     public void writeComment(String id, String comment, Date timestamp){
-        Row row = commentSheet.createRow(rowCount);
+        Row row = commentSheet.createRow(rowCountComments);
 
         Cell cell = row.createCell(0);
         cell.setCellValue(id);
@@ -76,7 +95,29 @@ public class CommentWriter {
         cell = row.createCell(3);
         cell.setCellValue(timestamp.toString());
 
-        rowCount++;
+        rowCountComments++;
+    }
+
+    public void writeMetadata(String id, String cultivar, Document metadataDoc){
+        Row row = metadataSheet.createRow(rowCountMeta);
+
+        Cell cell = row.createCell(0);
+        cell.setCellValue(id);
+        cell = row.createCell(1);
+        cell.setCellValue(cultivar);
+
+        cell = row.createCell(2);
+        cell.setCellValue(countLikes(metadataDoc));
+
+        rowCountMeta++;
+    }
+
+    public int countLikes(Document metadataDoc){
+//        if (metadataDoc.containsKey("ratings")){
+//            Map<String, Object> metadata = metadataDoc.get
+//        }
+
+        return 0;
     }
 
     /**

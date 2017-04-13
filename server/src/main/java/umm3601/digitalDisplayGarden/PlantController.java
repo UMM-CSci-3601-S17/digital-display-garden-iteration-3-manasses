@@ -293,7 +293,7 @@ public class PlantController {
                        ((ObjectId) comment.get("_id")).getDate());
            }
 
-           FindIterable<Document> plantIter = plantCollection.find();
+           FindIterable<Document> plantIter = plantCollection.find(eq("uploadId", uploadId));
 
            for (Document plant : plantIter){
 
