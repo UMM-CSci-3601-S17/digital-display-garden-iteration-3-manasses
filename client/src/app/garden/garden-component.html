@@ -4,41 +4,6 @@
 <plant-list></plant-list>
 <plant-component></plant-component>
 
-<script>
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '721662567861043',
-            xfbml      : true,
-            version    : 'v2.8'
-        });
-        FB.AppEvents.logPageView();
-        FB.ui({
-            method: 'share_open_graph',
-            action_type: 'og.likes',
-            action_properties: JSON.stringify({
-                object:'https://developers.facebook.com/docs/',
-            })
-        }, function(response){
-            // Debug response (optional)
-            console.log(response);
-        });
-    };
-
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div class="fb-like"
-     data-href="http://localhost:9000/"
-     data-layout="standard"
-     data-action="like"
-     data-show-faces="true">
-</div>
 
 <br><br><br>
 <div class="footer">
