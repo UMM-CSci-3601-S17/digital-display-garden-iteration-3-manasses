@@ -279,21 +279,26 @@ public class PlantController {
 
     public void writeComments(OutputStream outputStream, String uploadId) throws IOException{
 
-          FindIterable iter = commentCollection.find(
+          FindIterable<Document> iter = commentCollection.find(
                    and(
                            exists("commentOnPlant"),
                            eq("uploadId", uploadId)
                    ));
-           Iterator iterator = iter.iterator();
 
            CommentWriter commentWriter = new CommentWriter(outputStream);
 
-           while (iterator.hasNext()) {
-               Document comment = (Document) iterator.next();
+           for (Document comment : iter) {
                commentWriter.writeComment(comment.getString("commentOnPlant"),
                        comment.getString("comment"),
                        ((ObjectId) comment.get("_id")).getDate());
            }
+
+           FindIterable<Document> plantIter = plantCollection.find();
+
+           for (Document plant : plantIter){
+
+           }
+
            commentWriter.complete();
     }
 
