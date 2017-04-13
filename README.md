@@ -23,7 +23,7 @@ When you load the project on a new machine, tell Gradle to Refresh linked Gradle
 
 ## Already Completed Stories
 * Leave Comments About a Flower
-* Allow a visitor to rate a flower
+* Allow a visitor to rate a flower with likes
 * Generate and export QR Codes
 * Export Feedback to a File 
 * Footer with WCROC link on every page
@@ -33,8 +33,10 @@ When you load the project on a new machine, tell Gradle to Refresh linked Gradle
 * Search garden by Cultivar or Common Name
 * Show comment count
 * Rating and Commenting works (it broke when we transferred our code base)
-* Social Media Links
 * Page redesign
+
+##Attempted Stories
+* Social Media Links
 
 ## Documentation
 * [Excel File Requirements](Documentation/ExcelFileRequirements.md)  
